@@ -58,8 +58,6 @@ const Formulario = () => {
             Síntomas</label>
           <textarea 
           id="sintomas" 
-          cols="30" 
-          rows="10"
           className="border-2 w-full p-2 mt-2 placeholder-gray-400 rounded-md"
           placeholder="Describe los Síntomas">
           </textarea>
