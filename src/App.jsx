@@ -22,7 +22,9 @@ function App() {
           setPacientes = { setPacientes } // enviar a formularios
         />
         
-        <ListadoPacientes/>
+        <ListadoPacientes
+          pacientes = {pacientes}
+        />
       </div> 
     </div>
   )

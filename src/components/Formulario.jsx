@@ -32,7 +32,7 @@ const Formulario = ({pacientes, setPacientes}) => {
       }
       setPacientes([...pacientes, objetoPaciente])
       
-      //Reiniciar el forn
+      //Reiniciar el forn(cada vez q envie el form se vacea)
       setNombre('')
       setPropietario('')
       setEmail('')
@@ -51,7 +51,8 @@ const Formulario = ({pacientes, setPacientes}) => {
         <span className="text-indigo-600 font-bold">Adminístralos</span>
       </p>
       
-      <form 
+      <form /* inicio del formulario */
+      
       // parte 2- para ecribir en el form y este haga visible lo que se va escribiendo
       onSubmit={handleSubmit}
       className="bg-white shadow-xl rounded-lg px-5 py-10 mb-10"
@@ -59,11 +60,12 @@ const Formulario = ({pacientes, setPacientes}) => {
         {/* una forma de importar el mensaje de error */}
         {/* {error && <Error mensaje='Todos los campos son obligatorios'/>} */}
         
-        {/* otra forma de importar el mensaje de error */}
-        {error && <Error><p>Todos los campos son obligatorios</p></Error>}
+        {/* otra forma de importar el children de error */}
+        { error && <Error><p>Todos los campos son obligatorios</p></Error>}
         
         {/* Nombre de la Mascota*/}
         <div className="mb-5"> 
+          {/* htmlFor-> clickear en cualquier lado para editar algo*/}
           <label htmlFor="mascota" className="block text-gray-700 uppercase font-bold">Nombre Mascota</label>
           <input 
             id="mascota"
