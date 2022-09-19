@@ -1,23 +1,58 @@
+import { useEffect } from "react";
 import Paciente from "./Paciente";
 
-const ListadoPacientes = ({pacientes}) =>{
-  console.log(pacientes);
-  return (
+const ListadoPacientes = ({pacientes, setPaciente}) =>{ /* Paso 3 - la recibo en el componente */
+  
+  useEffect(() => {
+    if(pacientes.length > 0){
+      console.log("Nuevo Paciente");
+      
+    }
+    
+  }, [pacientes])
+  
+
+  return ( 
     <div className="md:w-1/2 lg:w-3/5 md:h-screen md:overflow-y-scroll">
-      <h2 className="font-black text-3xl text-center">Listado de Pacientes</h2>
+  
+      {pacientes && pacientes.length ?(
+        <>
+          <h2 className="font-black text-3xl text-center">Listado de Pacientes</h2>
       
-      <p className="text-lg text-center mt-5 mb-10 ">
-        Administra tus {''}
-        <span className="text-indigo-600 font-bold">Pacientes y Citas</span>
-      </p>
+          <p className="text-lg text-center mt-5 mb-10 ">
+          Administra tus {''}
+          <span className="text-indigo-600 font-bold">Pacientes y Citas</span>
+          </p>
       
-      {pacientes.map( paciente => (
-        <Paciente
-          paciente = {paciente}
-        />
-      ))}
+          {/* mala practica 
+          
+            {pacientes.map( (paciente, index) => (
+            <Paciente
+              key={index}
+              paciente={paciente}
+            />
+          ))} */}
       
+          {pacientes.map( (paciente) => (
+            <Paciente
+              key = {paciente.id}
+              paciente = {paciente}
+              setPaciente = {setPaciente} /* Paso 4 -  */ 
+            />
+          ))}  
+        </>
+        
+      ) : (
+        <>
+          <h2 className="font-black text-3xl text-center">No hay pacientes</h2>
       
+          <p className="text-lg text-center mt-5 mb-10 ">
+          Comienza agregando pacientes {''}
+          <span className="text-indigo-600 font-bold">y aparecerán en este lugar</span>
+          </p>
+        </>
+        
+      )}    
     </div> 
   )
 }

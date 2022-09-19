@@ -1,14 +1,31 @@
 import { useState, useEffect } from "react"
 import Error from "./Error";
 
-const Formulario = ({pacientes, setPacientes}) => {
+const Formulario = ({pacientes, setPacientes, paciente}) => {
   const [nombre, setNombre] =useState('');
   const [propietario, setPropietario] =useState('');
   const [email, setEmail] =useState('');
   const [alta, setAlta] =useState('');
   const [sintomas, setSintomas] =useState('');
-  
   const [error, setError] =useState(false);
+
+  useEffect( () =>{ 
+    if(Object.keys(paciente).length > 0){
+      console.log("Si hay algo");
+    } else{
+      console.log("No hay nada");
+    }
+  }, [paciente]) /* Se va a ejecutar siempre que paciente cambie */
+  
+   
+  
+  const generarId = () => {
+    const random = Math.random().toString(36).substring(2)
+    const fecha = Date.now().toString(36)
+    
+    return random + fecha
+  }
+  
   // paso 1 - para enviar formulario 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -28,7 +45,9 @@ const Formulario = ({pacientes, setPacientes}) => {
         propietario, 
         email, 
         alta, 
-        sintomas
+        sintomas,
+        id: generarId()
+        
       }
       setPacientes([...pacientes, objetoPaciente])
       
@@ -77,7 +96,7 @@ const Formulario = ({pacientes, setPacientes}) => {
              */
             value={nombre}
             onChange = { (e) => setNombre(e.target.value) }
-            />
+          />
             
         </div> {/* Fin - Nombre de la Mascota */}
         
