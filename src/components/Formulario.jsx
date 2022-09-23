@@ -11,7 +11,11 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
 
   useEffect( () =>{ 
     if(Object.keys(paciente).length > 0){
-      console.log("Si hay algo");
+      setNombre(paciente.nombre)     
+      setPropietario(paciente.propietario)     
+      setEmail(paciente.email)     
+      setAlta(paciente.alta)     
+      setSintomas(paciente.sintomas)     
     } else{
       console.log("No hay nada");
     }
@@ -36,7 +40,7 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
       console.log('Hay al menos un campo vacio');
       setError(true) /*  */
       return;
-    }else{
+    } else {
       setError(false)
       
       // OBJETO DE PACIENTE
@@ -46,10 +50,20 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
         email, 
         alta, 
         sintomas,
-        id: generarId()
-        
       }
-      setPacientes([...pacientes, objetoPaciente])
+      
+      if (paciente.id) {
+        // Editando registro
+        objetoPaciente.id = paciente.id
+        const pacientesActualizados = pacientes.map( pacienteState => 
+          pacienteState.id === paciente.id ? objetoPaciente : pacienteState
+        )
+        setPacientes(pacientesActualizados )
+      } else {
+        // Nuevo Registro
+        objetoPaciente.id = generarId() // Genero un nuevo ID 
+        setPacientes([...pacientes, objetoPaciente]) 
+      }
       
       //Reiniciar el forn(cada vez q envie el form se vacea)
       setNombre('')
@@ -163,7 +177,8 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
           type="submit" 
           className="bg-indigo-600 w-full p-3 text-white uppercase font-bold
           hover:bg-indigo-700 cursor-pointer transition-colors" 
-          value="Agregar Pacientes"/>
+          value={ paciente.id ? 'Editar Paciente' : 'Agregar Paciente'}
+          />
       </form>
            
     </div>
