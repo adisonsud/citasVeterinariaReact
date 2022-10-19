@@ -19,7 +19,7 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
     } else{
       console.log("No hay nada");
     }
-  }, [paciente]) /* Se va a ejecutar siempre que paciente cambie */
+  }, [paciente]) /* Se va a ejecutar siempre que paciente cambie ... */
   
    
   
