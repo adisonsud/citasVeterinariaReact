@@ -10,7 +10,7 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
   const [error, setError] =useState(false);
 
   useEffect( () =>{ 
-    if(Object.keys(paciente).length > 0){
+    if(Object.keys(paciente).length > 0){ /* Object.keys-> una forma de comprobar si un objeto tiene algo */
       setNombre(paciente.nombre)     
       setPropietario(paciente.propietario)     
       setEmail(paciente.email)     
@@ -51,12 +51,19 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
         alta, 
         sintomas,
       }
-      
+      //---------------------------------------------------------------
       if (paciente.id) {
         // Editando registro
         objetoPaciente.id = paciente.id
-        const pacientesActualizados = pacientes.map( pacienteState => 
-          pacienteState.id === paciente.id ? objetoPaciente : pacienteState
+        /* itera en cada uno de los registros, accede a cada uno de los objetos*/
+        const pacientesActualizados = pacientes.map( pacienteState =>  
+          // Si tienen el Id igual es el q se esta editando y 
+          // retorno el objetoPaciente que se manda a consola y dice que esta actualizado
+          // Si no som iguales retorno el objeto que esta en el state porque no es ese el que estoy modificando
+          // y lo retorna tal cual está
+          pacienteState.id === paciente.id ? objetoPaciente : pacienteState 
+
+
         )
         setPacientes(pacientesActualizados )
       } else {
