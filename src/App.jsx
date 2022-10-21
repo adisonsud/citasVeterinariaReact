@@ -1,29 +1,37 @@
-//-----------------------------------------------------------------------------
-import { useState  } from "react"
+import { useState, useEffect} from "react"
 import Header from "./components/Header"
 import Formulario from "./components/Formulario"
 import ListadoPacientes from "./components/ListadoPacientes"
-import { useEffect } from "react"
 
 function App() {
   // const [count, setCount] = useState(0)
   const [pacientes, setPacientes] = useState([])
   const [paciente, setPaciente] = useState({}) /* Pason 1 - funcion*/
-
+  
+  
+  //Bloque Local Storage - el orden es importante-------------------
+  // Queremos q se carge una vez el componente este listo
+  // este es un buen lugar para ver si en el local storage hay algo
+  // si hay algo, lo vamos a leer y lo vamos a setear para que ya no sea un arreglo vacio
   useEffect( () => {
     const obtenerLS = () => {
       //Si no hay nada en localStoge
-      const pacientesLS = localStorage.getItem('pacientes') 
-      console.log(pacientesLS);
+      const pacientesLS = JSON.parse(localStorage.getItem('pacientes')) ?? [];
+      setPacientes(pacientesLS);
     }
     obtenerLS();
-  }, []) /* cuando se le pasa el arreglo vacio quiere decir que se ejecutara una sola vez */
+  }, []) /* cuando se le pasa el arreglo vacio [] quiere decir que se ejecutara una sola vez */
 
-  // Guardando datos enm el local storage
+  // Este bloque sincroniza el state con lo que hay en pacientes
+  // Guardando datos en el local storage
+  // cuando se ejecute este otro effect ya va a detectar algo y ya no va aperder los datos
   useEffect( () => {
+    /* JSON.stringify va a convertir el arreglo u objeto en string */
     localStorage.setItem('pacientes', JSON.stringify( pacientes))
-  }, [pacientes])
-  
+  }, [pacientes]) /* le decimos q cada q aya un cambio en pacientes(L8) queremos ejecutar este codigo  */
+  //Fin del Bloque Local Storage-------------------------------------
+
+
   // configurando boton eliminar
   const eliminarPaciente = id => {
     const pacientesActualizados = pacientes.filter(paciente => paciente.id !== id);
