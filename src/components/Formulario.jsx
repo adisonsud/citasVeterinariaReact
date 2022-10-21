@@ -62,10 +62,8 @@ const Formulario = ({pacientes, setPacientes, paciente}) => {
           // Si no som iguales retorno el objeto que esta en el state porque no es ese el que estoy modificando
           // y lo retorna tal cual está
           pacienteState.id === paciente.id ? objetoPaciente : pacienteState 
-
-
         )
-        setPacientes(pacientesActualizados )
+        setPacientes(pacientesActualizados)
       } else {
         // Nuevo Registro
         objetoPaciente.id = generarId() // Genero un nuevo ID 

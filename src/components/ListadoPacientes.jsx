@@ -1,6 +1,6 @@
 import Paciente from "./Paciente";
 
-const ListadoPacientes = ({pacientes, setPaciente}) =>{ /* Paso 3 - la recibo en el componente */
+const ListadoPacientes = ({pacientes, setPaciente, eliminarPaciente}) =>{ /* Paso 3 - la recibo en el componente */
 
   return ( 
     <div className="md:w-1/2 lg:w-3/5 md:h-screen md:overflow-y-scroll">
@@ -28,6 +28,7 @@ const ListadoPacientes = ({pacientes, setPaciente}) =>{ /* Paso 3 - la recibo en
               key = {paciente.id}
               paciente = {paciente}
               setPaciente = {setPaciente} /* Paso 4 -  */ 
+              eliminarPaciente = {eliminarPaciente}
             />
           ))}  
         </>
